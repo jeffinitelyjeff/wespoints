@@ -1,0 +1,84 @@
+!!! 5
+%html
+	%head
+		%title Points Calculator
+		%link{:rel => 'stylesheet', :href => 'style.css', :type => 'text/css'}
+		%script{:type => 'text/javascript', :src => 'lib/jquery-1.6.4.min.js'}
+		%script{:type => 'text/javascript', :src => 'lib/underscore.js'}
+		%script{:type => 'text/javascript', :src => 'calc.js'}
+	%body
+		#header
+			%h1 Points Calculator
+			%h2 Fall 2011
+			Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
+		%table#plans
+			%thead
+				%tr
+					%th Meals
+					%th Points
+			%tbody
+				%tr#plan0
+					%td 0
+					%td 1582
+				%tr#plan1
+					%td 105
+					%td 723
+				%tr#plan2
+					%td 135
+					%td 508
+				%tr#plan3
+					%td 165
+					%td 293
+				%tr#plan4
+					%td 210
+					%td 107
+				%tr#plan5
+					%td 285
+					%td 53
+		#results
+			Date: <span id="date">X</span>
+			Days left: <span id="days-left">X</span>
+			%table
+				%thead
+					%tr
+						%th
+						%th Meals
+						%th Points
+					%tr#left.primary
+						%td Left
+						%td
+							%input{:type => 'text', :value => 'X'}
+						%td
+							%input{:type => 'text', :value => 'X'}
+					%tr#left-pd.secondary
+						%td Left per day
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+					%tr#left-pw.secondary
+						%td Left per week
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+					%tr#used.secondary
+						%td Used
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+					%tr#used-pd.secondary
+						%td Used per day
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+					%tr#used-pw.secondary
+						%td Used per week
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+						%td
+							%input{:type => 'text', :value => 'X', :disabled => true}
+		%input#back{:type => 'submit', :value => 'back'}
+		%input#go{:type => 'submit', :value => 'go'}
