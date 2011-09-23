@@ -1,0 +1,80 @@
+!!! 5
+%html
+	%head
+		%title Points Calculator
+		%link{:rel => 'stylesheet', :href => 'calc.css', :type => 'text/css'}
+		%script{:type => 'text/javascript', :src => 'jquery-1.6.4.min.js'}
+		%script{:type => 'text/javascript', :src => 'calc.js'}
+	%body
+		#header
+			%h1 Points Calculator
+			%h2 Fall 2011
+			Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
+		%table#plans
+			%thead
+				%tr
+					%th Meals
+					%th Points
+			%tbody
+				%tr#plan0
+					%td 0
+					%td 1582
+				%tr#plan1
+					%td 105
+					%td 723
+				%tr#plan2
+					%td 135
+					%td 508
+				%tr#plan3
+					%td 165
+					%td 293
+				%tr#plan4
+					%td 210
+					%td 107
+				%tr#plan5
+					%td 285
+					%td 53
+		%fieldset
+			%p#points-input
+				%label{:for => 'points'} Points left:
+				%input#points{:type => 'text', :value => 0}
+				%span.error Not a number
+			%p#meals-input
+				%label{:for => 'meals'} Meals left:
+				%input#meals{:type => 'text', :value => 0}
+				%span.error Not a number
+			%input#back{:type => 'submit', :value => 'back'}
+			%input#go{:type => 'submit', :value => 'go'}
+		#results
+			Date: <span id="date">X</span>
+			Days left: <span id="days-left">X</span>
+			%table
+				%thead
+					%tr
+						%th
+						%th Meals
+						%th Points
+					%tr#left
+						%td Left
+						%td X
+						%td X
+					%tr#left-pd
+						%td Left per day
+						%td X
+						%td X
+					%tr#left-pw
+						%td Left per week
+						%td X
+						%td X
+					%tr#used
+						%td Used
+						%td X
+						%td X
+					%tr#used-pd
+						%td Used per day
+						%td X
+						%td X
+					%tr#used-pw
+						%td Used per week
+						%td X
+						%td X
