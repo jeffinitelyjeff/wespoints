@@ -1,8 +1,13 @@
+default_input_txt = "--"
+
+# This is the only thing that should need updating between semesters.
 dates =
   start: "9-3-2011"
   end: "12-18-2011"
   breaks: [
+    # Fall break
     [ "10-21-2011", "10-26-2011" ],
+    # Thanksgiving break
     [ "11-22-2011", "11-28-2011" ]
   ]
 
@@ -44,10 +49,10 @@ w_left = round_to(d_left / 7, 2)
 d_so_far = d_diff Date.parse(dates.start), now
 w_so_far = round_to(d_so_far / 7, 2)
 
-console.log "Days left: " + d_left
-console.log "Weeks left: " + w_left
-console.log "Days so far: " + d_so_far
-console.log "Weeks so far: " + w_so_far
+# console.log "Days left: " + d_left
+# console.log "Weeks left: " + w_left
+# console.log "Days so far: " + d_so_far
+# console.log "Weeks so far: " + w_so_far
 
 # Get selector for the results rows
 row_sel = (row_name) ->
@@ -106,8 +111,14 @@ $(document).ready ->
   $("#back").click ->
     $("#results").hide()
     rows.show()
+    $(row_sel "left").val(default_input_txt)
 
   $("#go").click -> # replace this with any change in the primary fields
     populate_with_left plan
 
+  $(".primary input").focus ->
+    $(this).val("") if $(this).val() == default_input_txt
+
+  $(".primary input").blur ->
+    $(this).val(default_input_txt) if $(this).val() == ""
 

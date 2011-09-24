@@ -2,6 +2,7 @@
 %html
 	%head
 		%title Points Calculator
+		%link{:rel => 'stylesheet', :href => 'http://fonts.googleapis.com/css?family=Ubuntu', :type => 'text/css'}
 		%link{:rel => 'stylesheet', :href => 'style.css', :type => 'text/css'}
 		%script{:type => 'text/javascript', :src => 'lib/jquery-1.6.4.min.js'}
 		%script{:type => 'text/javascript', :src => 'lib/underscore.js'}
@@ -36,8 +37,8 @@
 					%td 285
 					%td 53
 		#results
-			Date: <span id="date">X</span>
-			Days left: <span id="days-left">X</span>
+			Date: <span id="date">--</span>
+			Days left: <span id="days-left">--</span>
 			%table
 				%thead
 					%tr
@@ -47,38 +48,38 @@
 					%tr#left.primary
 						%td Left
 						%td
-							%input{:type => 'text', :value => 'X'}
+							%input{:type => 'text', :value => '--'}
 						%td
-							%input{:type => 'text', :value => 'X'}
+							%input{:type => 'text', :value => '--'}
 					%tr#left-pd.secondary
 						%td Left per day
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 					%tr#left-pw.secondary
 						%td Left per week
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 					%tr#used.secondary
 						%td Used
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 					%tr#used-pd.secondary
 						%td Used per day
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 					%tr#used-pw.secondary
 						%td Used per week
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 						%td
-							%input{:type => 'text', :value => 'X', :disabled => true}
+							%input{:type => 'text', :value => '--', :disabled => true}
 		%input#back{:type => 'submit', :value => 'back'}
 		%input#go{:type => 'submit', :value => 'go'}
