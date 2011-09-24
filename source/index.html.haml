@@ -11,7 +11,9 @@
 		#header
 			%h1 Points Calculator
 			%h2 Fall 2011
-			Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
+		%p Date: <span id="date">--</span>
+		%p Days left: <span id="days-left">--</span>
+		%p Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
 		%table#plans
 			%thead
 				%tr
@@ -43,7 +45,7 @@
 						%input{:type => 'text'}
 					%td
 						%input{:type => 'text'}
-				%tr#used-pd.seconary.results
+				%tr#used-pd.secondary.results
 					%td per day
 					%td
 						%input{:type => 'text'}
@@ -55,7 +57,5 @@
 						%input{:type => 'text'}
 					%td
 						%input{:type => 'text'}
-	Date: <span id="date">--</span>
-	Days left: <span id="days-left">--</span>
 	%input#back{:type => 'submit', :value => 'back'}
 	%input#go{:type => 'submit', :value => 'go'}

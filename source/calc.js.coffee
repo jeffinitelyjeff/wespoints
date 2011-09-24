@@ -115,6 +115,8 @@ $(document).ready ->
   $("#date").text (new Date).toDateString()
   $("#days-left").text d_left
 
+  $(".secondary input").attr("disabled", true)
+
   $("tr.choices").click ->
     plan = plans[this.id.split("plan")[1]]
 
