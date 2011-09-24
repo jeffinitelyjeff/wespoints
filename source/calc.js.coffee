@@ -4,29 +4,35 @@ get_d_left = (today) ->
 get_w_left = (today) ->
   return 2 # FIXME!
 
-cell = (row, n) ->
-  $(row + " td:nth-child(#{n+2}) input")
+# Get selector for the results rows
+row_sel = (row_name) ->
+  switch row_name
+    when "left" then "#left input"
+    when "left-pd" then "#left-pd input"
+    when "left-pw" then "#left-pw input"
+    when "used" then "#used input"
+    when "used-pd" then "#used-pd input"
+    when "used-pw" then "#used-pw input"
+    else ""
 
+get_row = (n) ->
+  sel = row_sel n
+  _.map [ $(sel).first().val(), $(sel).last().val() ], (s) -> parseInt(s)
+
+set_row = (n, vals) ->
+  sel = row_sel n
+  $(sel).first().val vals[0]
+  $(sel).last().val vals[1]
 
 populate_with_left = (days, weeks, plan) ->
-  left = [ parseInt(cell("#left", 0).val()), parseInt(cell("#left", 1).val()) ]
-
-  console.log left
-
-  left_pd = _.map left, (n) -> n / days
-  $("#left-pd td:nth-child(2) input").val left_pd[0]
-  $("#left-pd td:nth-child(3) input").val left_pd[1]
-
-  left_pw = _.map left, (n) -> n / weeks
-  $("#left-pw td:nth-child(2) input").val left_pw[0]
-  $("#left-pw td:nth-child(3) input").val left_pw[1]
+  left = get_row "left"
+  set_row "left-pd", _.map(left, (n) -> n / days)
+  set_row "left-pw", _.map(left, (n) -> n / weeks)
 
   used = [ plan[0] - left[0], plan[1] - left[1] ]
-  $("#used td:nth-child(2) input")
-  console.log used
-  console.log used
-
-
+  set_row "used", used
+  set_row "used-pd", _.map(used, (n) -> n / days)
+  set_row "used-pw", _.map(used, (n) -> n / weeks)
 
 $(document).ready ->
   d = new Date
