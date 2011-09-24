@@ -15,71 +15,47 @@
 		%table#plans
 			%thead
 				%tr
+					%th.results
 					%th Meals
 					%th Points
 			%tbody
-				%tr#plan0
-					%td 0
-					%td 1582
-				%tr#plan1
-					%td 105
-					%td 723
-				%tr#plan2
-					%td 135
-					%td 508
-				%tr#plan3
-					%td 165
-					%td 293
-				%tr#plan4
-					%td 210
-					%td 107
-				%tr#plan5
-					%td 285
-					%td 53
-		#results
-			Date: <span id="date">--</span>
-			Days left: <span id="days-left">--</span>
-			%table
-				%thead
-					%tr
-						%th
-						%th Meals
-						%th Points
-					%tr#left.primary
-						%td Left
-						%td
-							%input{:type => 'text', :value => '--'}
-						%td
-							%input{:type => 'text', :value => '--'}
-					%tr#left-pd.secondary
-						%td Left per day
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-					%tr#left-pw.secondary
-						%td Left per week
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-					%tr#used.secondary
-						%td Used
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-					%tr#used-pd.secondary
-						%td Used per day
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-					%tr#used-pw.secondary
-						%td Used per week
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-						%td
-							%input{:type => 'text', :value => '--', :disabled => true}
-		%input#back{:type => 'submit', :value => 'back'}
-		%input#go{:type => 'submit', :value => 'go'}
+				%tr#left.primary.new-section.results
+					%td Left
+					%td
+						%input{:type => 'text'}
+					%td
+						%input{:type => 'text'}
+				%tr#left-pd.secondary.results
+					%td per day
+					%td
+						%input{:type => 'text'}
+					%td
+						%input{:type => 'text'}
+				%tr#left-pw.secondary.results
+					%td per week
+					%td
+						%input{:type => 'text'}
+					%td
+						%input{:type => 'text'}
+				%tr#used.secondary.new-section.results
+					%td Used
+					%td
+						%input{:type => 'text'}
+					%td
+						%input{:type => 'text'}
+				%tr#used-pd.seconary.results
+					%td per day
+					%td
+						%input{:type => 'text'}
+					%td
+						%input{:type => 'text'}
+				%tr#used-pw.secondary.results
+					%td per week
+					%td
+						%input{:type => 'text'}
+					%td
+						%input{:type => 'text'}
+	Date: <span id="date">--</span>
+	Days left: <span id="days-left">--</span>
+	%input#back{:type => 'submit', :value => 'back'}
+	%input#go{:type => 'submit', :value => 'go'}

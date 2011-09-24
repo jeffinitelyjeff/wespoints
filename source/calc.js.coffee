@@ -1,6 +1,17 @@
 default_input_txt = "--"
 
-# This is the only thing that should need updating between semesters.
+# Dates and plans should be the only things that need to be updated between
+# semesters
+
+plans = [
+  [ 0,   1582 ],
+  [ 105, 723  ],
+  [ 135, 508  ],
+  [ 165, 293  ],
+  [ 210, 107  ],
+  [ 285, 53   ]
+]
+
 dates =
   start: "9-3-2011"
   end: "12-18-2011"
@@ -84,34 +95,44 @@ populate_with_left = (plan) ->
   set_row "used-pd", _.map(used, (n) -> n / d_so_far)
   set_row "used-pw", _.map(used, (n) -> n / w_so_far)
 
+plan = []
+
 $(document).ready ->
+  # we reverse the plans so they get inserted in the right order
+  plans.reverse()
+  # insert each plan
+  _.each plans, (p, i) ->
+    row = $("<tr class='choices' id='plan#{plans.length-i-1}'></tr>").prependTo "table#plans tbody"
+    _.each [
+      $("<td class='results'></td>"),
+      $("<td>#{p[0]}</td>").addClass("m"),
+      $("<td>#{p[1]}</td>").addClass("p")
+    ], (cell) ->
+      cell.appendTo row
+  # reverse the plans back so we don't cause any unexpecetd behavior
+  plans.reverse()
 
   $("#date").text (new Date).toDateString()
   $("#days-left").text d_left
 
-  plan = []
-
-  rows = $("#plans > tbody > tr")
-  rows.click ->
-    # empty out the plan array before putting new values in it
-    plan.pop() for i in [0..plan.length]
-    # put new plan values in
-    $(this).children("td").each ->
-      plan.push parseInt $(this).text()
+  $("tr.choices").click ->
+    plan = plans[this.id.split("plan")[1]]
 
     # hide all the other rows
     that = this
-    rows.filter( -> this != that).hide()
+    $("tr.choices").filter( -> this != that).hide()
 
     # show various stuff
-    $("#results").show()
+    $(".results").show()
     $("#back").show()
     $("#go").show()
 
   $("#back").click ->
-    $("#results").hide()
-    rows.show()
+    $(".results").hide()
+    $("tr.choices").show()
     $(row_sel "left").val(default_input_txt)
+    $("#back").hide()
+    $("#go").hide()
 
   $("#go").click -> # replace this with any change in the primary fields
     populate_with_left plan
