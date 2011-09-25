@@ -102,9 +102,9 @@ $(document).ready ->
   plans.reverse()
   # insert each plan
   _.each plans, (p, i) ->
-    row = $("<tr class='choices' id='plan#{plans.length-i-1}'></tr>").prependTo "table#plans tbody"
+    row = $("<tr class='choices highlight' id='plan#{plans.length-i-1}'></tr>").prependTo "table#plans tbody"
     _.each [
-      $("<td class='results'></td>"),
+      $("<td class='results'>Total</td>"),
       $("<td>#{p[0]}</td>").addClass("m"),
       $("<td>#{p[1]}</td>").addClass("p")
     ], (cell) ->
@@ -117,7 +117,9 @@ $(document).ready ->
 
   $(".secondary input").attr("disabled", true)
 
-  $("tr.choices").click ->
+  $("tr.choices.highlight").click ->
+    $("tr.choices.highlight").removeClass "highlight"
+    $(this).addClass "totalRow"
     plan = plans[this.id.split("plan")[1]]
 
     # hide all the other rows
@@ -130,6 +132,7 @@ $(document).ready ->
     $("#go").show()
 
   $("#back").click ->
+    $("tr.choices").removeClass("totalRow").addClass("highlight")
     $(".results").hide()
     $("tr.choices").show()
     $(row_sel "left").val(default_input_txt)

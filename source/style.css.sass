@@ -18,10 +18,21 @@ body
 	.secondary input
 		border: none
 		background: inherit
+		padding: 6px
+
+	.totalRow td:nth-child(n+2)
+		padding: 13px 23px
+
+	tr
+		&.newSection
+			border-top: 1px solid #000
+
+		&:not(.newSection)
+			border-top: 1px solid #FFF
+
 
 	input
 		width: 40px
-
 
 	th
 		font-size: 18px
@@ -34,12 +45,9 @@ body
 		font-size: 12px
 		color: #000
 		background-color: #DDD
-		border-bottom: 1px solid #FFF
 		padding: 7px 17px
 
-
-
-	tr.choices:hover td
+	tr.highlight:hover td
 		background-color: #BBB
 
 #go, #back
