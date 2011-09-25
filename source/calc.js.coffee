@@ -82,8 +82,8 @@ get_row = (n) ->
 
 set_row = (n, vals) ->
   sel = row_sel n
-  $(sel).first().val round_to(vals[0], 1)
-  $(sel).last().val round_to(vals[1], 2)
+  $(sel).first().val if isNaN(vals[0]) then "" else round_to(vals[0], 1)
+  $(sel).last().val if isNaN(vals[1]) then "" else round_to(vals[1], 2)
 
 populate_with_left = (plan) ->
   left = get_row "left"
@@ -172,6 +172,8 @@ $(document).ready ->
 
   back_cell = $("#back-cell").detach()
 
+  $(".primary input").val default_input_txt
+
   $(".primary input").keyup ->
     validate()
     populate_with_left plan
@@ -179,6 +181,8 @@ $(document).ready ->
   $(".primary input").focus ->
     $(this).val("") if $(this).val() == default_input_txt
 
+  $(".primary input").click ->
+    this.select()
+
   $(".primary input").blur ->
     $(this).val(default_input_txt) if $(this).val() == ""
-

@@ -1,3 +1,11 @@
+$row-bg: #DDD
+$row-highlight-bg: #BBB
+$row-col: #222
+$row-highlight-col: #000
+$th-bg: #555
+$th-col: #FFF
+$default-bg: #FFF
+
 body
 	font-size: 16px
 	font-family: 'Ubuntu', sans-serif
@@ -9,19 +17,26 @@ body
 #plans
 	border-collapse: collapse
 	text-align: left
-	margin: 20px
-	background-color: white
-
-	.primary input
-		padding: 6px
+	background-color: $default-bg
 
 	.secondary input
 		border: none
 		background: inherit
+
+	input
+		width: 40px
 		padding: 6px
+
+		&#back
+			text-transform: uppercase
+			background-color: #AAA
+			border: 1px solid #000
+			width: inherit
+			padding: 8px 10px
 
 	.totalRow td:nth-child(n+2)
 		padding: 13px 23px
+		font-size: 14
 
 	tr
 		&.newSection td
@@ -31,29 +46,28 @@ body
 			border-top: 1px solid #FFF
 
 		&.highlight:hover td
-			background-color: #BBB
+			background-color: $row-highlight-bg
+			color: $row-highlight-col
 
 		th
 			font-size: 18px
-			color: #FFF
-			background-color: #555
+			background-color: $th-bg
+			color: $th-col
 			border-bottom: 3px solid #FFF
 			padding: 12px 17px
 
 		td
 			font-size: 12px
-			color: #000
-			background-color: #DDD
+			background-color: $row-bg
+			color: $row-col
 			padding: 7px 17px
 
 			&.error
-				background-color: #FFF
+				background-color: $default-bg
 				border-top: none !important
 
 			&#back-cell
-				background-color: #FFF
+				background-color: $default-bg
 
-			input
-				width: 40px
 
 
