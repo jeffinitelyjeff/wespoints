@@ -30,25 +30,30 @@ body
 		&:not(.newSection) td
 			border-top: 1px solid #FFF
 
-	input
-		width: 40px
+		&.highlight:hover td
+			background-color: #BBB
 
-	th
-		font-size: 18px
-		color: #FFF
-		background-color: #555
-		border-bottom: 3px solid #FFF
-		padding: 12px 17px
+		th
+			font-size: 18px
+			color: #FFF
+			background-color: #555
+			border-bottom: 3px solid #FFF
+			padding: 12px 17px
 
-	td
-		font-size: 12px
-		color: #000
-		background-color: #DDD
-		padding: 7px 17px
+		td
+			font-size: 12px
+			color: #000
+			background-color: #DDD
+			padding: 7px 17px
 
-	tr.highlight:hover td
-		background-color: #BBB
+			&.error
+				background-color: #FFF
+				border-top: none !important
 
-	td.error
-		background-color: #FFF
-		border-top: none !important
+			&#back-cell
+				background-color: #FFF
+
+			input
+				width: 40px
+
+

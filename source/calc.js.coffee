@@ -99,8 +99,10 @@ validate = ->
   _.each $("tr.primary"), (row) ->
     m_val = $(row).find("td.m input").val()
     p_val = $(row).find("td.p input").val()
-    m = m_val == "" or isNaN(m_val) or m_val < 0 or m_val > plan[0]
-    p = p_val == "" or isNaN(p_val) or p_val < 0 or p_val > plan[1]
+    m = m_val != "" and m_val != default_input_txt and
+      (isNaN(m_val) or m_val < 0 or m_val > plan[0])
+    p = p_val != "" and p_val != default_input_txt and
+      (isNaN(p_val) or p_val < 0 or p_val > plan[1])
     (if m or p
       $(row).find("td.error").show()
     else
@@ -119,22 +121,13 @@ validate = ->
 
 plan = []
 
-go_back = (back_cell) ->
-  back_cell.detach()
-  $("tr.choices").removeClass("totalRow").addClass("highlight")
-  $(".results").hide()
-  $("tr.choices").show()
-  $(row_sel "left").val(default_input_txt)
-  $("#plans td.error").text("")
-
 
 $(document).ready ->
 
-  back_cell = $("#back-cell").detach()
-
-  # we reverse the plans so they get inserted in the right order
+  # insert the plan options into the table.
+  # we reverse the plans so they get inserted in the right order.
   plans.reverse()
-  # insert each plan
+  # insert each plan.
   _.each plans, (p, i) ->
     row = $("<tr class='choices highlight' id='plan#{plans.length-i-1}'></tr>").prependTo "table#plans tbody"
     _.each [
@@ -143,30 +136,41 @@ $(document).ready ->
       $("<td>#{p[1]}</td>").addClass("p")
     ], (cell) ->
       cell.appendTo row
-  # reverse the plans back so we don't cause any unexpecetd behavior
+  # reverse the plans back so we don't cause any unexpecetd behavior.
   plans.reverse()
 
+  # display some preliminary info.
   $("#date").text (new Date).toDateString()
   $("#days-left").text d_left
 
+  # we'll work on allowing input for the secondary elements later.
   $(".secondary input").attr("disabled", true)
 
-  $("tr.choices").click ->
-    if $(this).hasClass "highlight"
+  $("tr.choices td").click ->
+    $row = $(this).parent("tr")
+    row = $row.get(0)
+    if $row.hasClass "highlight"
       $("tr.choices.highlight").removeClass "highlight"
-      $(this).addClass "totalRow"
-      plan = plans[this.id.split("plan")[1]]
+      $row.addClass "totalRow"
+      plan = plans[row.id.split("plan")[1]]
 
       # hide all the other rows
-      that = this
-      $("tr.choices").filter( -> this != that).hide()
+      $("tr.choices").filter( -> this != row).hide()
 
       # show various stuff
       $(".results").show()
-      $(this).append back_cell
-      $(this).find("#back").click -> go_back(back_cell)
+      $row.append back_cell
 
-  $("#back").click -> go_back(back_cell)
+  $("#back").click ->
+    back_cell.detach()
+    $("tr.choices").removeClass("totalRow").addClass("highlight")
+    $(".results").hide()
+    $("tr.choices").show()
+    $(row_sel "left").val(default_input_txt)
+    $(".primary input").keyup()
+    $("#plans td.error").text("")
+
+  back_cell = $("#back-cell").detach()
 
   $(".primary input").keyup ->
     validate()
