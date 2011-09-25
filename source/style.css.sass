@@ -3,7 +3,7 @@ body
 	font-family: 'Ubuntu', sans-serif
 	margin: 50px
 
-.results
+.results, .error
 	display: none
 
 #plans
@@ -24,12 +24,11 @@ body
 		padding: 13px 23px
 
 	tr
-		&.newSection
+		&.newSection td
 			border-top: 1px solid #000
 
-		&:not(.newSection)
+		&:not(.newSection) td
 			border-top: 1px solid #FFF
-
 
 	input
 		width: 40px
@@ -50,8 +49,6 @@ body
 	tr.highlight:hover td
 		background-color: #BBB
 
-#go, #back
-	display: none
-
-
-
+	td.error
+		background-color: #FFF
+		border-top: none !important

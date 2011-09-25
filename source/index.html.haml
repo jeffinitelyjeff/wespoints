@@ -23,39 +23,45 @@
 			%tbody
 				%tr#left.primary.newSection.results
 					%td Left
-					%td
+					%td.m
 						%input{:type => 'text'}
-					%td
+					%td.p
 						%input{:type => 'text'}
+					%td.error
+					%td#back-cell
+						%input#back{:type => 'submit', :value => 'back'}
 				%tr#left-pd.secondary.results
 					%td per day
-					%td
+					%td.m
 						%input{:type => 'text'}
-					%td
+					%td.p
 						%input{:type => 'text'}
+					%td.error
 				%tr#left-pw.secondary.results
 					%td per week
-					%td
+					%td.m
 						%input{:type => 'text'}
-					%td
+					%td.p
 						%input{:type => 'text'}
+					%td.error
 				%tr#used.secondary.newSection.results
 					%td Used
-					%td
+					%td.m
 						%input{:type => 'text'}
-					%td
+					%td.p
 						%input{:type => 'text'}
+					%td.error
 				%tr#used-pd.secondary.results
 					%td per day
-					%td
+					%td.m
 						%input{:type => 'text'}
-					%td
+					%td.p
 						%input{:type => 'text'}
+					%td.error
 				%tr#used-pw.secondary.results
 					%td per week
-					%td
+					%td.m
 						%input{:type => 'text'}
-					%td
+					%td.p
 						%input{:type => 'text'}
-	%input#back{:type => 'submit', :value => 'back'}
-	%input#go{:type => 'submit', :value => 'go'}
+					%td.error

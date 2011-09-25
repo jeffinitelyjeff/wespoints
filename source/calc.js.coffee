@@ -95,9 +95,43 @@ populate_with_left = (plan) ->
   set_row "used-pd", _.map(used, (n) -> n / d_so_far)
   set_row "used-pw", _.map(used, (n) -> n / w_so_far)
 
+validate = ->
+  _.each $("tr.primary"), (row) ->
+    m_val = $(row).find("td.m input").val()
+    p_val = $(row).find("td.p input").val()
+    m = m_val == "" or isNaN(m_val) or m_val < 0 or m_val > plan[0]
+    p = p_val == "" or isNaN(p_val) or p_val < 0 or p_val > plan[1]
+    (if m or p
+      $(row).find("td.error").show()
+    else
+      $(row).find("td.error").hide()
+    ).text(
+      if m and p
+        "Neither is a valid number, you jerk!"
+      else if m
+        "That isn't a valid number of meals"
+      else if p
+        "That isn't a valid number of points"
+      else
+        ""
+    )
+
+
 plan = []
 
+go_back = (back_cell) ->
+  back_cell.detach()
+  $("tr.choices").removeClass("totalRow").addClass("highlight")
+  $(".results").hide()
+  $("tr.choices").show()
+  $(row_sel "left").val(default_input_txt)
+  $("#plans td.error").text("")
+
+
 $(document).ready ->
+
+  back_cell = $("#back-cell").detach()
+
   # we reverse the plans so they get inserted in the right order
   plans.reverse()
   # insert each plan
@@ -117,29 +151,25 @@ $(document).ready ->
 
   $(".secondary input").attr("disabled", true)
 
-  $("tr.choices.highlight").click ->
-    $("tr.choices.highlight").removeClass "highlight"
-    $(this).addClass "totalRow"
-    plan = plans[this.id.split("plan")[1]]
+  $("tr.choices").click ->
+    if $(this).hasClass "highlight"
+      $("tr.choices.highlight").removeClass "highlight"
+      $(this).addClass "totalRow"
+      plan = plans[this.id.split("plan")[1]]
 
-    # hide all the other rows
-    that = this
-    $("tr.choices").filter( -> this != that).hide()
+      # hide all the other rows
+      that = this
+      $("tr.choices").filter( -> this != that).hide()
 
-    # show various stuff
-    $(".results").show()
-    $("#back").show()
-    $("#go").show()
+      # show various stuff
+      $(".results").show()
+      $(this).append back_cell
+      $(this).find("#back").click -> go_back(back_cell)
 
-  $("#back").click ->
-    $("tr.choices").removeClass("totalRow").addClass("highlight")
-    $(".results").hide()
-    $("tr.choices").show()
-    $(row_sel "left").val(default_input_txt)
-    $("#back").hide()
-    $("#go").hide()
+  $("#back").click -> go_back(back_cell)
 
-  $("#go").click -> # replace this with any change in the primary fields
+  $(".primary input").keyup ->
+    validate()
     populate_with_left plan
 
   $(".primary input").focus ->
