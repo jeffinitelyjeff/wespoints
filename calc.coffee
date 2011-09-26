@@ -196,6 +196,7 @@ $(document).ready ->
   $(".secondary input").attr("disabled", true)
 
   $("tr.choices td").click ->
+    $("#help-text").hide()
     $row = $(this).parent("tr")
     row = $row.get(0)
     if $row.hasClass "highlight"
@@ -233,6 +234,7 @@ $(document).ready ->
 
 
   $("#back").click ->
+    $("#help-text").show()
     back_cell.detach()
     $("tr.choices").removeClass("totalRow").addClass("highlight")
     $(".results").hide()

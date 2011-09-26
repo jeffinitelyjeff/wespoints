@@ -11,8 +11,9 @@
 			%h1 Points Calculator
 			%h2 Fall 2011
 			%p <span id="date">--</span>
-			%p <span id="days-left">--</span> days left in the semester
-			%p Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
+			%p <span id="days-left">--</span> days left
+			%a#balance{:href => 'https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1', :target => "_blank"} Check current balance
+			%p#help-text Click your meal plan to begin
 			%table#plans
 				%thead
 					%tr
