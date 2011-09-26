@@ -69,18 +69,13 @@ w_so_far = w_total - w_left
 
 # Get selector for the results rows
 row_sel = (row_name, subelem) ->
-  e = switch subelem
-    when "error" then ".error"
-    when "ideal-m" then ".ideal-m .ideal-num"
-    when "ideal-p" then ".ideal-p .ideal-num"
-    else "input"
   switch row_name
-    when "left" then "#left #{e}"
-    when "left-pd" then "#left-pd #{e}"
-    when "left-pw" then "#left-pw #{e}"
-    when "used" then "#used #{e}"
-    when "used-pd" then "#used-pd #{e}"
-    when "used-pw" then "#used-pw #{e}"
+    when "left" then "#left input"
+    when "left-pd" then "#left-pd input"
+    when "left-pw" then "#left-pw input"
+    when "used" then "#used input"
+    when "used-pd" then "#used-pd input"
+    when "used-pw" then "#used-pw input"
     else ""
 
 get_row = (n) ->
@@ -101,6 +96,27 @@ populate_with_left = (plan) ->
   set_row "used-pd", _.map(used, (n) -> n / d_so_far)
   set_row "used-pw", _.map(used, (n) -> n / w_so_far)
 
+  # display ideal info on hover only if there aren't any errors
+
+  m_err = $(".primary .error-m")
+  p_err = $(".primary .error-p")
+  m_p_err = $(".primary .error-m-p")
+
+  if _.all(m_p_err, (e) -> $(e).is(":hidden")) and _.all(m_err, (e) -> $(e).is(":hidden"))
+    _.each $("tr.secondary"), ->
+      i = $(this).find("ideal-m")
+      $(this).find("td.m").hover ( -> i.show()), ( -> i.hide())
+  else
+    _.each $("tr.secondary"), ->
+      $(this).find("td.m").hover (e) -> e.stopImmediatePropagation()
+
+  if _.all(m_p_error, (e) -> $(e).is(":hidden")) and _.all(p_err, (e) -> $(e).is(":hidden"))
+    _.each $("tr.secondary"), ->
+      i = $(this).find("ideal-p")
+      $(this).find("td.p").hover ( -> i.show()), ( -> i.hide())
+  else
+    _.each $("tr.secondary"), ->
+      $(this).find("td.p").hover (e) -> e.stopImmediatePropagation()
 
 
 validate = ->
@@ -111,21 +127,22 @@ validate = ->
       (isNaN(m_val) or m_val < 0 or m_val > plan[0])
     p = p_val != "" and p_val != default_input_txt and
       (isNaN(p_val) or p_val < 0 or p_val > plan[1])
-    (if m or p
-      $(row).find("td.extra span.error").show()
-    else
-      $(row).find("td.extra span.error").hide()
-    ).text(
-      if m and p
-        "Neither is a valid number, you jerk!"
-      else if m
-        "That isn't a valid number of meals"
-      else if p
-        "That isn't a valid number of points"
-      else
-        ""
-    )
 
+    if m and p
+      show = ".error-m-p"
+      hide = [".error-m", ".error-p"]
+    else if m
+      show = ".error-m"
+      hide = [".error-m-p", ".error-p"]
+    else if p
+      show = ".error-p"
+      hide = [".error-m-p", ".error-m"]
+    else
+      show = ""
+      hide = [".error-m", ".error-p", ".error-m-p"]
+
+    $(row).find(show).show()
+    $(row).find(hide).hide()
 
 plan = []
 
@@ -188,7 +205,8 @@ $(document).ready ->
           round = switch x
             when "m" then 1
             when "p" then 2
-          $(row_sel n, "ideal-#{x}").text round_to(ideals[pos], round)
+          $(row_sel n).find(".ideal-#{x} .ideal-num")
+            .text round_to(ideals[pos], round)
 
 
   $("#back").click ->
