@@ -27,7 +27,8 @@ body
 	display: none
 
 #container
-	display: inline-block
+	margin: 0 auto
+	display: block
 	@include four-shadow(1px, 1px, 10px, #AAA)
 	padding: 20px 20px 20px 20px
 	width: 386px
@@ -83,11 +84,6 @@ h2
 		border-color: transparent
 		bottom: -10px
 
-	/* &:before
-	/* 	border-width: 0 10px 10px 0
-	/* 	border-right-color: #222
-	/* 	left: 0
-
 	&:after
 		border-width: 0 0 10px 10px
 		border-left-color: #222
@@ -136,6 +132,9 @@ h2
 		&:not(.newSection) td
 			border-top: 1px solid #FFF
 
+		&.highlight
+			cursor: pointer
+
 		&.highlight:hover td
 			background-color: $row-highlight-bg
 			color: $row-highlight-col
@@ -177,7 +176,7 @@ h2
 
 			&#back-cell
 				background-color: $default-bg
-				padding-right: 0
+				padding: 0 0 0 20px
 
 			&.title
 				font-weight: bold
