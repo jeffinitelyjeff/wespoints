@@ -102,31 +102,55 @@ populate_with_left = (plan) ->
   p_err = $(".primary .error-p")
   m_p_err = $(".primary .error-m-p")
 
-  if _.all(m_p_err, (e) -> $(e).is(":hidden")) and _.all(m_err, (e) -> $(e).is(":hidden"))
-    _.each $("tr.secondary"), ->
-      i = $(this).find("ideal-m")
-      $(this).find("td.m").hover ( -> i.show()), ( -> i.hide())
+  # display ideal meals
+  # if _.all(m_p_err, (e) -> $(e).is(":hidden")) and _.all(m_err, (e) ->
+  # $(e).is(":hidden"))
+  if valid_meals()
+    $("tr.secondary td.m").hover(
+      () -> $(this).parent().find(".ideal-m").show(),
+      () -> $(this).parent().find(".ideal-m").hide()
+    )
   else
-    _.each $("tr.secondary"), ->
-      $(this).find("td.m").hover (e) -> e.stopImmediatePropagation()
+    $("tr.secondary td.m").unbind "mouseenter mouseleave"
+    $(".ideal-m").hide()
 
-  if _.all(m_p_err, (e) -> $(e).is(":hidden")) and _.all(p_err, (e) -> $(e).is(":hidden"))
-    _.each $("tr.secondary"), ->
-      i = $(this).find("ideal-p")
-      $(this).find("td.p").hover ( -> i.show()), ( -> i.hide())
+  # display ideal points
+  # if _.all(m_p_err, (e) -> $(e).is(":hidden")) and _.all(p_err, (e) ->
+  # $(e).is(":hidden"))
+  if valid_points()
+    $("tr.secondary td.p").hover(
+      () -> $(this).parent().find(".ideal-p").show(),
+      () -> $(this).parent().find(".ideal-p").hide()
+    )
   else
-    _.each $("tr.secondary"), ->
-      $(this).find("td.p").hover (e) -> e.stopImmediatePropagation()
+    $("tr.secondary td.p").unbind "mouseenter mouseleave"
+    $(".ideal-p").hide()
+
+# Notice that this differs form the validity checking in `generate_errors`
+# because we don't generate errors for "" or default_input_txt, but we
+# don't consider them valid either.
+valid_meals = ->
+  _.all $("tr.primary"), (row) ->
+    val = $(row).find("td.m input").val()
+    !isNaN(val) and parseInt(val) > 0 and parseInt(val) < plan[0]
+
+# Notice that this differs form the validity checking in `generate_errors`
+# because we don't generate errors for "" or default_input_txt, but we
+# don't consider them valid either.
+valid_points = ->
+  _.all $("tr.primary"), (row) ->
+    val = $(row).find("td.p input").val()
+    !isNaN(val) and parseInt(val) > 0 and parseInt(val) < plan[1]
 
 
-validate = ->
+generate_errors = ->
   _.each $("tr.primary"), (row) ->
     m_val = $(row).find("td.m input").val()
     p_val = $(row).find("td.p input").val()
     m = m_val != "" and m_val != default_input_txt and
-      (isNaN(m_val) or m_val < 0 or m_val > plan[0])
+      (isNaN(m_val) or parseInt(m_val) < 0 or parseInt(m_val) > plan[0])
     p = p_val != "" and p_val != default_input_txt and
-      (isNaN(p_val) or p_val < 0 or p_val > plan[1])
+      (isNaN(p_val) or parseInt(p_val) < 0 or parseInt(p_val) > plan[1])
 
     if m and p
       show = ".error-m-p"
@@ -223,7 +247,7 @@ $(document).ready ->
   $(".primary input").val default_input_txt
 
   $(".primary input").keyup ->
-    validate()
+    generate_errors()
     populate_with_left plan
 
   $(".primary input").focus ->
