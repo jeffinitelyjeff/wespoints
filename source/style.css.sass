@@ -1,35 +1,126 @@
 $row-bg: #DDD
 $row-highlight-bg: #BBB
-$row-col: #222
+$row-col: #333
 $row-highlight-col: #000
-$th-bg: #555
+$th-bg: #444
 $th-col: #FFF
 $default-bg: #FFF
+
+@mixin four-shadow($x, $y, $b, $c)
+	$y2: -$y
+	$x2: -$x
+	-moz-box-shadow: $x $y $b $c, $x $y2 $b $c, $x2 $y $b $c, $x2 $y2 $b $c
+	-webkit-box-shadow: $x $y $b $c, $x $y2 $b $c, $x2 $y $b $c, $x2 $y2 $b $c
+	box-shadow: $x $y $b $c, $x $y2 $b $c, $x2 $y $b $c, $x2 $y2 $b $c
+
+@mixin inner-shadow($b, $c)
+	-moz-box-shadow: inset 0 0 $b $c
+	-webkit-box-shadow: inset 0 0 $b $c
+	box-shadow: inset 0 0 $b $c
 
 body
 	font-size: 16px
 	font-family: Tahoma, Geneva, Verdana, sans-serif
-	margin: 50px
+	margin: 20px 50px
 
-.results, .error
+.results,
 	display: none
+
+#container
+	display: inline-block
+	@include four-shadow(1px, 1px, 10px, #AAA)
+	padding: 20px 20px 20px 20px
+	width: 386px
+
+h1
+	background-color: $th-bg
+	color: #FFF
+	padding: 3px 10px
+
+	position: relative
+	margin: 0 -40px 20px -40px
+	text-align: center
+	text-shadow: 1px 1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000
+	-moz-box-shadow: 0 2px 0 rgba(0,0,0,.3)
+	-webkit-box-shadow: 0 2px 0 rgba(0,0,0,.3)
+	box-shadow: 0 2px 0 rgba(0,0,0,.3)
+
+	&:before, &:after
+		content: ''
+		position: absolute
+		border-style: solid
+		border-color: transparent
+		bottom: -20px
+
+	&:before
+		border-width: 0 20px 20px 0
+		border-right-color: #222
+		left: 0
+
+	&:after
+		border-width: 0 0 20px 20px
+		border-left-color: #222
+		right: 0
+
+h2
+	background-color: $row-bg
+	color: $row-col
+	padding: 3px 10px
+	float: right
+	display: inline-block
+
+	position: relative
+
+	margin: 0 -30px
+	-moz-box-shadow: 2px 2px 0 rgba(0,0,0,.1)
+	-webkit-box-shadow: 2px 2px 0 rgba(0,0,0,.1)
+	box-shadow: 2px 2px 0 rgba(0,0,0,.1)
+
+	&:after
+		content: ''
+		position: absolute
+		border-style: solid
+		border-color: transparent
+		bottom: -10px
+
+	/* &:before
+	/* 	border-width: 0 10px 10px 0
+	/* 	border-right-color: #222
+	/* 	left: 0
+
+	&:after
+		border-width: 0 0 10px 10px
+		border-left-color: #222
+		right: 0
+
+
+#td.extra
+	float: left
 
 #plans
 	border-collapse: collapse
 	text-align: left
 	background-color: $default-bg
 
+	.primary input
+		border: 1px solid #000
+
+		&:hover
+			@include inner-shadow(4px, #777)
+
 	.secondary input
 		border: none
 		background: inherit
+		background-color: inherit
 
 	input
 		width: 40px
 		padding: 6px
+		color: $row-col
 
 		&#back
 			text-transform: uppercase
-			background-color: $row-highlight-bg
+			background-color: $row-bg
 			border: 1px solid #000
 			width: inherit
 			padding: 8px 10px
@@ -48,6 +139,7 @@ body
 		&.highlight:hover td
 			background-color: $row-highlight-bg
 			color: $row-highlight-col
+			font-weight: bold
 
 		th
 			font-size: 18px
@@ -55,6 +147,7 @@ body
 			color: $th-col
 			border-bottom: 3px solid #FFF
 			padding: 12px 17px
+			text-shadow: 1px 1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000
 
 		td
 			font-size: 12px
@@ -63,14 +156,28 @@ body
 			padding: 7px 17px
 
 			&.extra
-				background-color: $default-bg
+				background-color: inherit
 				border-top: none !important
+				position: absolute
 
-				.ideal-m, .ideal-p
+				.ideal-m, .ideal-p, .error
 					display: none
+
+				> span
+					position: relative
+					float: left
+					top: 1px
+					background-color: white
+					border: 1px solid black
+					padding: 6px
+
+					&.error
+						color: red
+
 
 			&#back-cell
 				background-color: $default-bg
+				padding-right: 0
 
 			&.title
 				font-weight: bold

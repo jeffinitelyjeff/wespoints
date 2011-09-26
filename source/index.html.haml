@@ -7,79 +7,79 @@
 		%script{:type => 'text/javascript', :src => 'lib/underscore.js'}
 		%script{:type => 'text/javascript', :src => 'calc.js'}
 	%body
-		#header
+		%span#container
 			%h1 Points Calculator
 			%h2 Fall 2011
-		%p Date: <span id="date">--</span>
-		%p Days left: <span id="days-left">--</span>
-		%p Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
-		%table#plans
-			%thead
-				%tr
-					%th.results
-					%th Meals
-					%th Points
-			%tbody
-				%tr#left.primary.newSection.results
-					%td.title Left
-					%td.m
-						%input{:type => 'text'}
-					%td.p
-						%input{:type => 'text'}
-					%td.extra
-						%span.error.error-m-p Neither is a valid number, you jerk!
-						%span.error.error-m That isn't a vaild number of meals
-						%span.error.error-p That isn't a valid number of points
-						%span.ideal.ideal-m Ideally, you'd have <span class="ideal-num"></span> meals left
-						%span.ideal.ideal-p Ideally, you'd have <span class="ideal-num"></span> points left
-					%td#back-cell
-						%input#back{:type => 'submit', :value => 'back'}
-				%tr#left-pd.secondary.results
-					%td.title per day
-					%td.m
-						%input{:type => 'text'}
-					%td.p
-						%input{:type => 'text'}
-					%td.extra
-						%span.error
-						%span.ideal.ideal-m Ideally, you'd have <span class="ideal-num"></span> meals left per day
-						%span.ideal.ideal-p Ideally, you'd have <span class="ideal-num"></span> points left per day
-				%tr#left-pw.secondary.results
-					%td.title per week
-					%td.m
-						%input{:type => 'text'}
-					%td.p
-						%input{:type => 'text'}
-					%td.extra
-						%span.error
-						%span.ideal.ideal-m Ideally, you'd have <span class="ideal-num"></span> meals left per week
-						%span.ideal.ideal-p Ideally, you'd have <span class="ideal-num"></span> points left per week
-				%tr#used.secondary.newSection.results
-					%td.title Used
-					%td.m
-						%input{:type => 'text'}
-					%td.p
-						%input{:type => 'text'}
-					%td.extra
-						%span.error
-						%span.ideal.ideal-m Ideally, you'd have used <span class="ideal-num"></span> meals
-						%span.ideal.ideal-p Ideally, you'd have used <span class="ideal-num"></span> points
-				%tr#used-pd.secondary.results
-					%td.title per day
-					%td.m
-						%input{:type => 'text'}
-					%td.p
-						%input{:type => 'text'}
-					%td.extra
-						%span.ideal.ideal-m Ideally, you'd have used <span class="ideal-num"></span> meals per day
-						%span.ideal.ideal-p Ideally, you'd have used <span class="ideal-num"></span> points per day
-				%tr#used-pw.secondary.results
-					%td.title per week
-					%td.m
-						%input{:type => 'text'}
-					%td.p
-						%input{:type => 'text'}
-					%td.extra
-						%span.error
-						%span.ideal.ideal-m Ideally, you'd have used <span class="ideal-num"></span> meals per week
-						%span.ideal.ideal-p Ideally, you'd have used <span class="ideal-num"></span> points per week
+			%p <span id="date">--</span>
+			%p <span id="days-left">--</span> days left in the semester
+			%p Click <a href="https://onecard.wesleyan.edu/webapps/portal/frameset.jsp?tab_id=_35_1">here</a> to check current balance
+			%table#plans
+				%thead
+					%tr
+						%th.results
+						%th Meals
+						%th Points
+				%tbody
+					%tr#left.primary.newSection.results
+						%td.title Left
+						%td.m
+							%input{:type => 'text'}
+						%td.p
+							%input{:type => 'text'}
+						%td.extra
+							%span.error.error-m-p Neither is a valid number, you jerk!
+							%span.error.error-m That isn't a vaild number of meals
+							%span.error.error-p That isn't a valid number of points
+							%span.ideal.ideal-m Ideally, you'd have <span class="ideal-num"></span> meals left
+							%span.ideal.ideal-p Ideally, you'd have <span class="ideal-num"></span> points left
+						%td#back-cell
+							%input#back{:type => 'submit', :value => 'back'}
+					%tr#left-pd.secondary.results
+						%td.title per day
+						%td.m
+							%input{:type => 'text'}
+						%td.p
+							%input{:type => 'text'}
+						%td.extra
+							%span.error
+							%span.ideal.ideal-m Ideally, you'd have <span class="ideal-num"></span> meals left per day
+							%span.ideal.ideal-p Ideally, you'd have <span class="ideal-num"></span> points left per day
+					%tr#left-pw.secondary.results
+						%td.title per week
+						%td.m
+							%input{:type => 'text'}
+						%td.p
+							%input{:type => 'text'}
+						%td.extra
+							%span.error
+							%span.ideal.ideal-m Ideally, you'd have <span class="ideal-num"></span> meals left per week
+							%span.ideal.ideal-p Ideally, you'd have <span class="ideal-num"></span> points left per week
+					%tr#used.secondary.newSection.results
+						%td.title Used
+						%td.m
+							%input{:type => 'text'}
+						%td.p
+							%input{:type => 'text'}
+						%td.extra
+							%span.error
+							%span.ideal.ideal-m Ideally, you'd have used <span class="ideal-num"></span> meals
+							%span.ideal.ideal-p Ideally, you'd have used <span class="ideal-num"></span> points
+					%tr#used-pd.secondary.results
+						%td.title per day
+						%td.m
+							%input{:type => 'text'}
+						%td.p
+							%input{:type => 'text'}
+						%td.extra
+							%span.ideal.ideal-m Ideally, you'd have used <span class="ideal-num"></span> meals per day
+							%span.ideal.ideal-p Ideally, you'd have used <span class="ideal-num"></span> points per day
+					%tr#used-pw.secondary.results
+						%td.title per week
+						%td.m
+							%input{:type => 'text'}
+						%td.p
+							%input{:type => 'text'}
+						%td.extra
+							%span.error
+							%span.ideal.ideal-m Ideally, you'd have used <span class="ideal-num"></span> meals per week
+							%span.ideal.ideal-p Ideally, you'd have used <span class="ideal-num"></span> points per week

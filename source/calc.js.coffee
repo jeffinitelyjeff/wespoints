@@ -229,8 +229,7 @@ $(document).ready ->
           round = switch x
             when "m" then 1
             when "p" then 2
-          $(row_sel n).find(".ideal-#{x} .ideal-num")
-            .text round_to(ideals[pos], round)
+          $("##{n} .ideal-#{x} .ideal-num").text round_to(ideals[pos], round)
 
 
   $("#back").click ->
