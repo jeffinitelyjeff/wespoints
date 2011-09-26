@@ -13,13 +13,13 @@ plans = [
 ]
 
 dates =
-  start: "9-3-2011"
-  end: "12-18-2011"
+  start: "Sep 3, 2011"
+  end: "Dec 18, 2011"
   breaks: [
     # Fall break
-    [ "10-21-2011", "10-26-2011" ],
+    [ "Oct 21, 2011", "Oct 26, 2011" ],
     # Thanksgiving break
-    [ "11-22-2011", "11-28-2011" ]
+    [ "Nov 22, 2011", "Nov 28, 2011" ]
   ]
 
 d_diff = (start, end) ->
