@@ -8,7 +8,7 @@ $default-bg: #FFF
 
 body
 	font-size: 16px
-	font-family: 'Ubuntu', sans-serif
+	font-family: Tahoma, Geneva, Verdana, sans-serif
 	margin: 50px
 
 .results, .error
@@ -36,7 +36,7 @@ body
 
 	.totalRow td:nth-child(n+2)
 		padding: 13px 23px
-		font-size: 14
+		font-size: 14px
 
 	tr
 		&.newSection td
@@ -62,12 +62,18 @@ body
 			color: $row-col
 			padding: 7px 17px
 
-			&.error
+			&.extra
 				background-color: $default-bg
 				border-top: none !important
 
+				.ideal-m, .ideal-p
+					display: none
+
 			&#back-cell
 				background-color: $default-bg
+
+			&.title
+				font-weight: bold
 
 
 

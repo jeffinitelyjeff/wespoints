@@ -55,10 +55,12 @@ round_to = (n, p) ->
   Math.round(n * mult) / mult
 
 now = Date.now()
+d_total = d_diff Date.parse(dates.start), Date.parse(dates.end)
+w_total = d_total / 7
 d_left = d_diff now, Date.parse(dates.end)
-w_left = round_to(d_left / 7, 2)
-d_so_far = d_diff Date.parse(dates.start), now
-w_so_far = round_to(d_so_far / 7, 2)
+w_left = d_left / 7
+d_so_far = d_total - d_left
+w_so_far = w_total - w_left
 
 # console.log "Days left: " + d_left
 # console.log "Weeks left: " + w_left
@@ -66,24 +68,28 @@ w_so_far = round_to(d_so_far / 7, 2)
 # console.log "Weeks so far: " + w_so_far
 
 # Get selector for the results rows
-row_sel = (row_name) ->
+row_sel = (row_name, subelem) ->
+  e = switch subelem
+    when "error" then ".error"
+    when "ideal-m" then ".ideal-m .ideal-num"
+    when "ideal-p" then ".ideal-p .ideal-num"
+    else "input"
   switch row_name
-    when "left" then "#left input"
-    when "left-pd" then "#left-pd input"
-    when "left-pw" then "#left-pw input"
-    when "used" then "#used input"
-    when "used-pd" then "#used-pd input"
-    when "used-pw" then "#used-pw input"
+    when "left" then "#left #{e}"
+    when "left-pd" then "#left-pd #{e}"
+    when "left-pw" then "#left-pw #{e}"
+    when "used" then "#used #{e}"
+    when "used-pd" then "#used-pd #{e}"
+    when "used-pw" then "#used-pw #{e}"
     else ""
 
 get_row = (n) ->
   sel = row_sel n
   _.map [ $(sel).first().val(), $(sel).last().val() ], (s) -> parseInt(s)
 
-set_row = (n, vals) ->
-  sel = row_sel n
-  $(sel).first().val if isNaN(vals[0]) then "" else round_to(vals[0], 1)
-  $(sel).last().val if isNaN(vals[1]) then "" else round_to(vals[1], 2)
+set_row = (n, vals, ideals) ->
+  $(row_sel n).first().val if isNaN(vals[0]) then "" else round_to(vals[0], 1)
+  $(row_sel n).last().val if isNaN(vals[1]) then "" else round_to(vals[1], 2)
 
 populate_with_left = (plan) ->
   left = get_row "left"
@@ -95,6 +101,8 @@ populate_with_left = (plan) ->
   set_row "used-pd", _.map(used, (n) -> n / d_so_far)
   set_row "used-pw", _.map(used, (n) -> n / w_so_far)
 
+
+
 validate = ->
   _.each $("tr.primary"), (row) ->
     m_val = $(row).find("td.m input").val()
@@ -104,9 +112,9 @@ validate = ->
     p = p_val != "" and p_val != default_input_txt and
       (isNaN(p_val) or p_val < 0 or p_val > plan[1])
     (if m or p
-      $(row).find("td.error").show()
+      $(row).find("td.extra span.error").show()
     else
-      $(row).find("td.error").hide()
+      $(row).find("td.extra span.error").hide()
     ).text(
       if m and p
         "Neither is a valid number, you jerk!"
@@ -131,7 +139,7 @@ $(document).ready ->
   _.each plans, (p, i) ->
     row = $("<tr class='choices highlight' id='plan#{plans.length-i-1}'></tr>").prependTo "table#plans tbody"
     _.each [
-      $("<td class='results'>Total</td>"),
+      $("<td class='results title'>Total</td>"),
       $("<td>#{p[0]}</td>").addClass("m"),
       $("<td>#{p[1]}</td>").addClass("p")
     ], (cell) ->
@@ -160,6 +168,28 @@ $(document).ready ->
       # show various stuff
       $(".results").show()
       $row.append back_cell
+
+      ideal_left = _.map(plan, (n) -> n * d_left / d_total)
+      ideal_used = _.map(plan, (n) -> n * d_so_far / d_total)
+      ideal_pd = _.map(plan, (n) -> n / d_total)
+      ideal_pw = _.map(plan, (n) -> n / w_total)
+
+       # fill in the ideal information
+      _.each ["left", "left-pd", "left-pw", "used", "used-pd", "used-pw"], (n) ->
+        _.each ["m", "p"], (x) ->
+          ideals = switch n
+            when "left" then ideal_left
+            when "used" then ideal_used
+            when "left-pd", "used-pd" then ideal_pd
+            when "left-pw", "used-pw" then ideal_pw
+          pos = switch x
+            when "m" then 0
+            when "p" then 1
+          round = switch x
+            when "m" then 1
+            when "p" then 2
+          $(row_sel n, "ideal-#{x}").text round_to(ideals[pos], round)
+
 
   $("#back").click ->
     back_cell.detach()
