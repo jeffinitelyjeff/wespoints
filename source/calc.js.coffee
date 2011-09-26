@@ -110,7 +110,7 @@ populate_with_left = (plan) ->
     _.each $("tr.secondary"), ->
       $(this).find("td.m").hover (e) -> e.stopImmediatePropagation()
 
-  if _.all(m_p_error, (e) -> $(e).is(":hidden")) and _.all(p_err, (e) -> $(e).is(":hidden"))
+  if _.all(m_p_err, (e) -> $(e).is(":hidden")) and _.all(p_err, (e) -> $(e).is(":hidden"))
     _.each $("tr.secondary"), ->
       i = $(this).find("ideal-p")
       $(this).find("td.p").hover ( -> i.show()), ( -> i.hide())
@@ -142,7 +142,7 @@ validate = ->
       hide = [".error-m", ".error-p", ".error-m-p"]
 
     $(row).find(show).show()
-    $(row).find(hide).hide()
+    $(row).find(hide.join ", ").hide()
 
 plan = []
 
