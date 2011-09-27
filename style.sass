@@ -22,6 +22,7 @@ body
 	font-size: 16px
 	font-family: Tahoma, Geneva, Verdana, sans-serif
 	margin: 20px 50px
+	background: url('http://static.tumblr.com/msonfaf/CyWl5o8g7/bg.png')
 
 .results,
 	display: none
@@ -32,6 +33,8 @@ body
 	@include four-shadow(1px, 1px, 10px, #AAA)
 	padding: 20px 20px 20px 20px
 	width: 386px
+	background-color: #FFF
+	position: relative
 
 #balance
 	cursor: pointer
@@ -39,14 +42,15 @@ body
 	display: block
 	margin: 16px 0 40px 0
 
-	&:hover
-		color: #36E !important
-
 	&:visited
 		color: #03A
 
+	&:hover
+		color: #36E
+
 	&:active
-		color: #03A !important
+		color: #03A
+
 
 h1
 	background-color: $th-bg
@@ -104,9 +108,46 @@ h2
 		border-left-color: #222
 		right: 0
 
+#wesfood
+	cursor: pointer
+	text-decoration: none
+	color: #FFF
+	background-color: #666
+	font-size: 12px
 
-#td.extra
-	float: left
+	position: absolute
+	bottom: -6px
+	right: 15px
+	padding: 5px 10px
+
+	&:before
+		content: ''
+		position: absolute
+		left: -6px
+		bottom: 0
+		border-style: solid
+		border-color: #333 #333 transparent transparent
+		border-width: 3px
+
+	&:hover
+		right: 13px
+		bottom: -8px
+		background-color: #333
+
+		&:before
+			left: -8px
+			border-width: 4px
+			border-color: #000 #000 transparent transparent
+
+	&:active
+		right: 17px
+		bottom: -4px
+		background-color: #333
+
+		&:before
+			left: -4px
+			border-width: 2px
+			border-color: #000 #000 transparent transparent
 
 #plans
 	border-collapse: collapse
@@ -183,8 +224,8 @@ h2
 
 				> span
 					position: relative
-					float: left
 					top: 1px
+					float: left
 					background-color: white
 					border: 1px solid black
 					padding: 6px
