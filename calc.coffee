@@ -192,6 +192,14 @@ $(document).ready ->
   $("#date").text (new Date).toDateString()
   $("#days-left").text d_left
 
+  $("#info-target").hover(
+    () -> $("#info").show(),
+    () -> $("#info").hide()
+  )
+
+  # FIXME FILL IN WITH ACTUAL INFO
+  $("#info span").text(" YOOO ")
+
   # we'll work on allowing input for the secondary elements later.
   $(".secondary input").attr("disabled", true)
 
