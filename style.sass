@@ -53,14 +53,15 @@ body
 
 #info
 	display: none
-	position: absolute
 	background-color: #FFF
 	border: 1px solid black
-	left: 135px
-	top: 100px
 	width: 300px
-	padding: 20px
+	padding: 5px 20px
 	font-size: 14px
+
+	position: absolute
+	left: 175px
+	top: 75px
 
 	#info-arrow-border
 		border-color: transparent #000 transparent transparent
@@ -69,7 +70,7 @@ body
 		height: 0
 		width: 0
 		position: absolute
-		top: 18px
+		top: 44px
 		left: -21px
 
 	#info-arrow
@@ -79,7 +80,7 @@ body
 		height: 0
 		width: 0
 		position: absolute
-		top: 18px
+		top: 44px
 		left: -20px
 
 	&:after
@@ -89,7 +90,28 @@ body
 		bottom: -50px
 		border-style: solid
 		border-color: #333 transparent transparent #333
-		border-width: 25px
+		border-width: 25px 45px
+
+#info-title
+	background-color: $row-bg
+	color: $row-col
+	float: right
+	display: inline-block
+	padding: 10px
+	border: 1px solid black
+
+	position: absolute
+	right: 20px
+	top: -23px
+
+	&:before
+		content: ''
+		position: absolute
+		left: -8px
+		top: -2px
+		border-style: solid
+		border-color: transparent #666 #666 transparent
+		border-width: 4px
 
 #info-target
 	font-size: 10px

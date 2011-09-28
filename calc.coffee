@@ -15,12 +15,17 @@ plans = [
 dates =
   start: "Sep 3, 2011"
   end: "Dec 18, 2011"
-  breaks: [
-    # Fall break
-    [ "Oct 21, 2011", "Oct 26, 2011" ],
-    # Thanksgiving break
-    [ "Nov 22, 2011", "Nov 28, 2011" ]
-  ]
+  breaks:
+    "Fall": [ "Oct 21, 2011", "Oct 26, 2011" ],
+    "Thanksgiving": [ "Nov 22, 2011", "Nov 28, 2011" ]
+
+american_date = (s, sep) ->
+  sep = sep || "-"
+  d = (new Date(Date.parse(s)))
+  parts = d.toISOString().split("T")[0].split("-")
+  (if parts[1][0] == "0" then parts[1].slice(1) else parts[1]) + sep +
+    parts[2] + sep +
+    parts[0]
 
 d_diff = (start, end) ->
   one_day = 1000 * 60 * 60 * 24
@@ -190,7 +195,7 @@ $(document).ready ->
 
   # display some preliminary info.
   $("#date").text (new Date).toDateString()
-  $("#days-left").text d_left
+  $("#days-left").text "#{d_left} / #{d_total}"
 
   $("#info-target").hover(
     () -> $("#info").show(),
@@ -198,9 +203,29 @@ $(document).ready ->
   )
 
   # FIXME FILL IN WITH ACTUAL INFO
-  $("#info span").text(" YOOO ")
+  info_text = "<p>I'm assuming:</p>
+  <ul>
+    <li>you arrived on #{american_date dates.start}</li>
+    <li>you're leaving on #{american_date dates.end}</li>
+  </ul>
+  <p>These are the official housing open/close dates. Left-per-x
+  calculations are accurate if you arrived earlier (ahem, freshmen), but
+  will be (very, very) slighly below their true values if you're planning to
+  leave early.</p>
+  <p>I'm also not counting the days during these breaks:</p>
+  <ul>"
+  _.each(dates.breaks, (bdates, bname) ->
+    info_text += "<li>#{bname}: #{american_date bdates[0]} &ndash;
+  #{american_date bdates[1]}</li>"
+  )
+  info_text += "</ul>"
+
+  $("#info #content").html info_text
+
+
 
   # we'll work on allowing input for the secondary elements later.
+  # FIXME NO WE WON'T
   $(".secondary input").attr("disabled", true)
 
   $("tr.choices td").click ->
