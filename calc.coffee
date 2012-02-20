@@ -13,11 +13,10 @@ plans = [
 ]
 
 dates =
-  start: "Sep 3, 2011"
-  end: "Dec 18, 2011"
+  start: "Jan 24, 2012"
+  end: "May 19, 2012"
   breaks:
-    "Fall": [ "Oct 21, 2011", "Oct 26, 2011" ],
-    "Thanksgiving": [ "Nov 22, 2011", "Nov 28, 2011" ]
+    "Spring": [ "Mar 09, 2012", "Mar 26, 2011" ],
 
 american_date = (s, sep) ->
   sep = sep || "-"
