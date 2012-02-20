@@ -208,9 +208,9 @@ $(document).ready ->
     <li>you're leaving on #{american_date dates.end}</li>
   </ul>
   <p>These are the official housing open/close dates. Left-per-x
-  calculations are accurate if you arrived earlier (ahem, freshmen), but
+  calculations are accurate if you arrived earlier (ahem, seniors), but
   will be (very, very) slighly below their true values if you're planning to
-  leave early.</p>
+  leave early or above if you're planning to leave later.</p>
   <p>I'm also not counting the days during these breaks:</p>
   <ul>"
   _.each(dates.breaks, (bdates, bname) ->
