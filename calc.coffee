@@ -16,7 +16,7 @@ dates =
   start: "Jan 24, 2012"
   end: "May 19, 2012"
   breaks:
-    "Spring": [ "Mar 09, 2012", "Mar 26, 2011" ],
+    "Spring": [ "Mar 09, 2012", "Mar 26, 2012" ],
 
 american_date = (s, sep) ->
   sep = sep || "-"
